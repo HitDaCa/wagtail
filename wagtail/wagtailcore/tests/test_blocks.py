@@ -175,6 +175,11 @@ class TestRichTextBlock(TestCase):
         self.assertIsInstance(result, RichText)
         self.assertEqual(result.source, '')
 
+    def test_hallo_config_richtext_block(self):
+        configuration = {'halloheadings': {'formatBlocks': ['p', 'h2']}}
+        block = blocks.RichTextBlock(hallo_config=configuration)
+        self.assertEqual(block.hallo_config, configuration)
+
 
 class TestChoiceBlock(unittest.TestCase):
     def setUp(self):
