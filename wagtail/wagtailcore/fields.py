@@ -13,11 +13,21 @@ from wagtail.wagtailcore.blocks import Block, StreamBlock, StreamValue, BlockFie
 
 
 class RichTextArea(WidgetWithScript, forms.Textarea):
+
+    def __init__(self, attrs=None):
+        # Use default hallo plugin if non passed
+        default_attrs = {'hallo_config': None}
+        if attrs:
+            default_attrs.update(attrs)
+
+        super(RichTextArea, self).__init__(default_attrs)
+
     def get_panel(self):
         from wagtail.wagtailadmin.edit_handlers import RichTextFieldPanel
         return RichTextFieldPanel
 
     def render(self, name, value, attrs=None):
+
         if value is None:
             translated_value = None
         else:
@@ -25,7 +35,9 @@ class RichTextArea(WidgetWithScript, forms.Textarea):
         return super(RichTextArea, self).render(name, translated_value, attrs)
 
     def render_js_init(self, id_, name, value):
-        return "makeRichTextEditable({0});".format(json.dumps(id_))
+        hallo_config = self.attrs.get("hallo_config")
+        return "makeRichTextEditable({0}, {1});".format(json.dumps(id_),
+                                                   json.dumps(hallo_config))
 
     def value_from_datadict(self, data, files, name):
         original_value = super(RichTextArea, self).value_from_datadict(data, files, name)
