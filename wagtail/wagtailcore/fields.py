@@ -47,8 +47,13 @@ class RichTextArea(WidgetWithScript, forms.Textarea):
 
 
 class RichTextField(models.TextField):
+
+    def __init__(self, hallo_config=None, **kwargs):
+        self.hallo_config = hallo_config
+        super(RichTextField, self).__init__(**kwargs)
+
     def formfield(self, **kwargs):
-        defaults = {'widget': RichTextArea}
+        defaults = {'widget': RichTextArea(attrs={'hallo_config': self.hallo_config})}
         defaults.update(kwargs)
         return super(RichTextField, self).formfield(**defaults)
 
