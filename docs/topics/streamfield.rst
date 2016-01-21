@@ -131,6 +131,10 @@ RichTextBlock
 
 A WYSIWYG editor for creating formatted text including links, bold / italics etc.
 
+The keyword arguments ``required``, ``help_text`` and ``hallo_config`` are accepted.
+
+A custom ``hallo.js`` JSON configuration can be passed through the ``hallo_config`` attribute.
+
 RawHTMLBlock
 ~~~~~~~~~~~~
 

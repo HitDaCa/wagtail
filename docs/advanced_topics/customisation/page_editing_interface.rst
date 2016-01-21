@@ -63,6 +63,46 @@ If you're interested in extending the capabilities of the Wagtail WYSIWYG editor
 
 .. _extending_wysiwyg:
 
+Passing a custom ``hallo.js`` editor configuration
+--------------------------------------------------
+
+A custom ``hallo.js`` JSON configuration can be passed through the ``hallo_config`` attribute.
+
+.. code-block:: python
+
+    from wagtail.wagtailcore.fields import RichTextField
+    from wagtail.wagtailadmin.edit_handlers import FieldPanel
+
+
+    class BookPage(Page):
+        book_text = RichTextField(hallo_config={
+                                        'halloheadings': {
+                                            'formatBlocks': ['p', 'h2']
+                                        },
+                                        'halloformat': {
+                                            'formattings': {
+                                                "bold": True,
+                                                "italic": False,
+                                            },
+                                        },
+                                        'hallowagtaildoclink': {},
+                                        'hallolists': {
+                                            "lists": {
+                                                "ordered": True,
+                                                "unordered": False
+                                            }
+                                        },
+                                        'hallowagtaillink': {},
+                                        'hallorequireparagraphs': {}
+
+                                    }
+                                    )),
+        })
+
+        content_panels = Page.content_panels + [
+            FieldPanel('body', classname="full"),
+        ]
+
 Extending the WYSIWYG Editor (``hallo.js``)
 -------------------------------------------
 
